@@ -12,7 +12,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "hyprStartup"
+name = "hyprKeeper"
 version = "0.1.0"
 dependencies = [
  "regex",
