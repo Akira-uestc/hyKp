@@ -53,5 +53,8 @@ pub fn restore_window() {
             .arg(format!("{} > /dev/null 2>&1 &", cleaned_cmd))
             .spawn()  // Use `spawn` to start the process in the background
             .expect("Failed to execute command");
+        
+        let duration = std::time::Duration::from_millis(2000);
+        std::thread::sleep(duration);
     }
 }
