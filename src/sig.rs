@@ -6,7 +6,7 @@ use std::thread;
 use std::time::Duration;
 
 pub fn signal_shutdown() -> bool {
-        let term_flag = Arc::new(AtomicBool::new(false));
+    let term_flag = Arc::new(AtomicBool::new(false));
 
     // 注册关机信号
     flag::register_conditional_shutdown(SIGTERM, 1, Arc::clone(&term_flag)).unwrap();

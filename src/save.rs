@@ -18,6 +18,18 @@ pub fn save_layout() {
         return;
     }
 
+    Command::new("rm")
+        .arg("-rf")
+        .arg("/home/akira/.config/hyprStartup/")
+        .status()
+        .expect("Failed to execute command");
+
+    Command::new("mkdir")
+        .arg("-p")
+        .arg("/home/akira/.config/hyprStartup")
+        .status()
+        .expect("Failed to execute command");
+
     let pid_output = "/home/akira/.config/hyprStartup/pid.save";
     let pid_re = Regex::new(r"\s*pid:\s*(\d+)").unwrap();
     let layout_output = "/home/akira/.config/hyprStartup/layout.save";

@@ -1,4 +1,4 @@
-use std::{fs, process::{Command, Output}};
+use std::{fs, process::Command};
 
 pub fn parse_saved() -> (Vec<String>, Vec<String>) {
     let pid_input = "/home/akira/.config/hyprStartup/pid.save";
@@ -48,12 +48,12 @@ pub fn restore_window() {
         }
 
         // 执行 fish shell 命令
-        let status = Command::new("sh")
+        let _status = Command::new("sh")
             .arg("-c")
             .arg(format!("{} > /dev/null 2>&1 &", cleaned_cmd))
             .spawn()  // Use `spawn` to start the process in the background
             .expect("Failed to execute command");
-        
+
         let duration = std::time::Duration::from_millis(2000);
         std::thread::sleep(duration);
     }
