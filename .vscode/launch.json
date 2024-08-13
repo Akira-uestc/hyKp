@@ -7,15 +7,15 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'hyprStartup'",
+            "name": "Debug executable 'hyprKeeper'",
             "cargo": {
                 "args": [
                     "build",
-                    "--bin=hyprStartup",
-                    "--package=hyprStartup"
+                    "--bin=hyprKeeper",
+                    "--package=hyprKeeper"
                 ],
                 "filter": {
-                    "name": "hyprStartup",
+                    "name": "hyprKeeper",
                     "kind": "bin"
                 }
             },
@@ -25,16 +25,16 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in executable 'hyprStartup'",
+            "name": "Debug unit tests in executable 'hyprKeeper'",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
-                    "--bin=hyprStartup",
-                    "--package=hyprStartup"
+                    "--bin=hyprKeeper",
+                    "--package=hyprKeeper"
                 ],
                 "filter": {
-                    "name": "hyprStartup",
+                    "name": "hyprKeeper",
                     "kind": "bin"
                 }
             },

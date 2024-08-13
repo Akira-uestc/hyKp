@@ -11,5 +11,4 @@ fn main() {
             crate::save::save_layout();
         }
     }
-
 }

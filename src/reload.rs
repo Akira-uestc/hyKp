@@ -9,7 +9,7 @@ pub fn parse_saved() -> (Vec<String>, Vec<String>) {
 
     if let Ok(contents) = fs::read_to_string(pid_input) {
         for line in contents.lines() {
-            process.push(line.to_string()); // 将每行内容推入 process 向量中
+            process.push(line.to_string());
         }
     } else {
         eprintln!("Failed to read the PID input file.");
@@ -17,7 +17,7 @@ pub fn parse_saved() -> (Vec<String>, Vec<String>) {
 
     if let Ok(contents) = fs::read_to_string(layout_input) {
         for line in contents.lines() {
-            layout.push(line.to_string()); // 将每行内容推入 layout 向量中
+            layout.push(line.to_string());
         }
     } else {
         eprintln!("Failed to read the layout input file.");
@@ -36,6 +36,17 @@ pub fn restore_window() {
         let cleaned_cmd = cmd.replace('\0', "");
         let cleaned_ws = ws.replace('\0', "");
 
+        // 执行 hyprctl 命令
+        let output = Command::new("hyprctl")
+            .arg("dispatch")
+            .arg(format!("workspace {}", cleaned_ws))
+            .output()
+            .expect("Failed to execute command");
+
+        if !output.status.success() {
+            eprintln!("hyprctl command failed with output: {:?}", String::from_utf8_lossy(&output.stderr));
+        }
+
         // 执行 fish shell 命令
         let output = Command::new("fish")
             .arg("-c")
@@ -45,16 +56,6 @@ pub fn restore_window() {
 
         if !output.status.success() {
             eprintln!("fish command failed with output: {:?}", String::from_utf8_lossy(&output.stderr));
-        }
-
-        // 执行 hyprctl 命令
-        let output = Command::new("hyprctl")
-            .arg(format!("movetoworkspace {}", cleaned_ws))
-            .output()
-            .expect("Failed to execute command");
-
-        if !output.status.success() {
-            eprintln!("hyprctl command failed with output: {:?}", String::from_utf8_lossy(&output.stderr));
         }
     }
 }
