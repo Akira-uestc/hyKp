@@ -1,0 +1,10 @@
+[Unit]
+Description=Hykp Service
+
+[Service]
+ExecStart=/usr/local/bin/hykp
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+

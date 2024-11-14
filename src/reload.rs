@@ -1,8 +1,8 @@
 use std::{fs, process::Command};
 
 pub fn parse_saved() -> (Vec<String>, Vec<String>) {
-    let pid_input = "/home/akira/.config/hyprStartup/pid.save";
-    let layout_input = "/home/akira/.config/hyprStartup/layout.save";
+    let pid_input = "/home/akira/.config/hykp/pid.save";
+    let layout_input = "/home/akira/.config/hykp/layout.save";
 
     let mut process = Vec::new();
     let mut layout = Vec::new();
@@ -24,7 +24,6 @@ pub fn parse_saved() -> (Vec<String>, Vec<String>) {
     }
 
     (process, layout)
-
 }
 
 pub fn restore_window() {
@@ -44,14 +43,17 @@ pub fn restore_window() {
             .expect("Failed to execute command");
 
         if !output.status.success() {
-            eprintln!("hyprctl command failed with output: {:?}", String::from_utf8_lossy(&output.stderr));
+            eprintln!(
+                "hyprctl command failed with output: {:?}",
+                String::from_utf8_lossy(&output.stderr)
+            );
         }
 
         // 执行 fish shell 命令
         let _status = Command::new("sh")
             .arg("-c")
             .arg(format!("{} > /dev/null 2>&1 &", cleaned_cmd))
-            .spawn()  // Use `spawn` to start the process in the background
+            .spawn() // Use `spawn` to start the process in the background
             .expect("Failed to execute command");
 
         let duration = std::time::Duration::from_millis(2000);
